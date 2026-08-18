@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SERVICES, SITE } from '@/content';
 
 type Status = { type: 'idle' | 'ok' | 'err'; msg: string };
@@ -9,11 +9,14 @@ export function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
 
   // Math CAPTCHA operands (regenerated per mount)
-  const { a, b } = useMemo(() => {
+  const [captchaNums, setCaptchaNums] = useState<{ a: number; b: number } | null>(null);
+  useEffect(() => {
     const x = Math.floor(Math.random() * 7) + 2;
     const y = Math.floor(Math.random() * 7) + 2;
-    return { a: x, b: y };
+    setCaptchaNums({ a: x, b: y });
   }, []);
+  const a = captchaNums?.a ?? 0;
+  const b = captchaNums?.b ?? 0;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,7 +24,7 @@ export function ContactForm() {
     setStatus({ type: 'idle', msg: '' });
 
     const form = new FormData(e.currentTarget);
-    const honeypot = (form.get('company_url') as string) || '';
+    const honeypot = (form.get('hp') as string) || '';
     const answer = (form.get('captcha') as string) || '';
     const expected = (form.get('aVal') as string) + (form.get('bVal') as string);
 
@@ -69,7 +72,9 @@ export function ContactForm() {
 
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
-      <input type="text" name="company_url" className="visually-hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+      <div style={{ display: 'none' }} aria-hidden="true">
+      <input type="text" name="hp" tabIndex={-1} autoComplete="off" />
+    </div>
 
       <div className="form__row form__row--2">
         <div className="field">
@@ -116,7 +121,7 @@ export function ContactForm() {
       <div className="form__row form__row--2">
         <div className="field">
           <label htmlFor="captcha">
-            Spam check: what is {a} + {b}?
+            Spam check: what is {captchaNums ? `${a} + ${b}` : '...'}?
           </label>
           <input id="captcha" name="captcha" type="text" inputMode="numeric" required autoComplete="off" />
           <input type="hidden" name="aVal" value={a} />

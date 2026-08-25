@@ -299,7 +299,7 @@ input, textarea, select { font: inherit; }
 /* ---------- Cards ---------- */
 .card-grid { display: grid; gap: 1.5rem; }
 @media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
 
 .scard {
   position: relative; background: var(--offwhite-200); border: 1px solid var(--line-light);

@@ -39,7 +39,7 @@ export function ProjectsGrid() {
         ))}
       </div>
 
-      <div className="card-grid card-grid--2">
+      <div className="card-grid card-grid--3">
         {visible.map((p, i) => (
           <ProjectCard key={p.id} project={p} />
         ))}

@@ -104,7 +104,7 @@ export default function HomePage() {
               </p>
             </Reveal>
           </div>
-          <div className="card-grid card-grid--3">
+          <div className="card-grid card-grid--2">
             {FEATURED_WORK.map((f, i) => (
               <Reveal key={i} delay={i * 0.06}>
                 <FeaturedCard item={f} />

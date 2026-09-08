@@ -171,6 +171,8 @@
 .pos__blocks { position: relative; min-height: 46vh; margin-top: var(--space-block); }
 .pos__block { position: absolute; inset: 0 auto auto 0; max-width: 620px; will-change: transform, opacity; }
 .pos--unpinned .pos__block { position: static; max-width: none; margin-bottom: var(--space-block); }
+.pos--unpinned .pos__blocks { min-height: 0; margin-top: var(--space-stack); }
+.pos--unpinned .pos__media { opacity: 0.4; }
 .pos__k { color: var(--accent); }
 .pos__t { margin-top: var(--space-inline); }
 .pos__d { margin-top: var(--space-inline); color: var(--paper-100); opacity: 0.85; }

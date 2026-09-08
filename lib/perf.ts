@@ -4,7 +4,7 @@
    ========================================================================== */
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, useEffect, useState } from 'react';
 
 export type Tier = 'A' | 'B' | 'C';
 
@@ -58,6 +58,35 @@ function subscribe(cb: () => void): () => void {
 /** SSR-safe: server snapshot is always 'A'; client reconciles after hydration. */
 export function useTier(): Tier {
   return useSyncExternalStore(subscribe, getTier, () => 'A');
+}
+
+/**
+ * useCanPin — pinning needs vertical room. In short viewports (small laptops,
+ * embedded preview panes ~480px) a 100svh pin leaves spacer gaps and stacked
+ * absolute cards overlap. Below 700px height we serve the unpinned composition.
+ */
+export function useCanPin(): boolean {
+  const tier = useTier();
+  const [can, setCan] = useState(true);
+
+  useEffect(() => {
+    const compute = () =>
+      setCan(
+        tier !== 'C' &&
+          window.innerHeight >= 700 &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      );
+    compute();
+    window.addEventListener('resize', compute);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mq.addEventListener?.('change', compute);
+    return () => {
+      window.removeEventListener('resize', compute);
+      mq.removeEventListener?.('change', compute);
+    };
+  }, [tier]);
+
+  return can;
 }
 
 /* ---- runtime FPS probe: if <45fps for 2 continuous seconds, step down ---- */

@@ -7,7 +7,7 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap } from '@/lib/motion';
-import { useTier } from '@/lib/perf';
+import { useTier, useCanPin } from '@/lib/perf';
 import { STATS, PROOF_SECONDARY } from '@/content/proof';
 import { Counter } from '@/components/motion/Counter';
 import { Pinned } from '@/components/motion/Pinned';
@@ -37,13 +37,14 @@ const COMMITMENTS = [
 export function Proof() {
   const stackRef = useRef<HTMLDivElement | null>(null);
   const tier = useTier();
+  const canPin = useCanPin();
 
   useEffect(() => {
     const stack = stackRef.current;
     if (!stack) return;
     const cards = Array.from(stack.querySelectorAll<HTMLElement>('.proof__card'));
 
-    if (tier === 'C' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (tier === 'C' || !canPin || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.set(cards, { yPercent: 0, scale: 1, opacity: 1, clearProps: 'all' });
       return;
     }
@@ -62,7 +63,7 @@ export function Proof() {
       tl.scrollTrigger?.kill();
       tl.kill();
     };
-  }, [tier]);
+  }, [tier, canPin]);
 
   return (
     <section className="section section--dark-alt proof" id="proof">
@@ -101,7 +102,7 @@ export function Proof() {
       </Container>
 
       {/* Pinned stack of commitments */}
-      <Pinned end="+=160%" className={tier === 'C' ? 'proof__stack--unpinned' : ''}>
+      <Pinned end="+=160%" className={tier === 'C' || !canPin ? 'proof__stack--unpinned' : ''}>
         <div className="proof__stack" ref={stackRef}>
           <Container>
             <div className="proof__stack-inner">

@@ -16,9 +16,11 @@ interface Props {
   className?: string;
   delay?: number;
   once?: boolean;
+  /** Animate on mount instead of on scroll (for above-the-fold content). */
+  immediate?: boolean;
 }
 
-export function LineMask({ lines, as: Tag = 'h2', className = '', delay = 0, once = true }: Props) {
+export function LineMask({ lines, as: Tag = 'h2', className = '', delay = 0, once = true, immediate = false }: Props) {
   const ref = useRef<HTMLElement | null>(null);
   const tier = useTier();
 
@@ -34,6 +36,18 @@ export function LineMask({ lines, as: Tag = 'h2', className = '', delay = 0, onc
     }
 
     gsap.set(inners, { yPercent: 110 });
+
+    if (immediate) {
+      const t = gsap.to(inners, {
+        yPercent: 0,
+        duration: DUR.slow * 0.9,
+        ease: EASE_OUT,
+        stagger: STAGGER.sibling,
+        delay: delay + 0.15,
+      });
+      return () => t.kill();
+    }
+
     const tween = gsap.to(inners, {
       yPercent: 0,
       duration: DUR.slow * 0.9,
@@ -47,7 +61,7 @@ export function LineMask({ lines, as: Tag = 'h2', className = '', delay = 0, onc
       tween.scrollTrigger?.kill();
       tween.kill();
     };
-  }, [tier, delay, once]);
+  }, [tier, delay, once, immediate]);
 
   return (
     <Tag ref={ref as never} className={className}>

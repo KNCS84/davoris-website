@@ -7,7 +7,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/motion';
-import { useTier } from '@/lib/perf';
+import { useTier, useCanPin } from '@/lib/perf';
 
 interface Props {
   children: ReactNode;
@@ -19,10 +19,11 @@ interface Props {
 export function Pinned({ children, className = '', end = '+=180%' }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const tier = useTier();
+  const canPin = useCanPin();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || tier === 'C') return;
+    if (!el || tier === 'C' || !canPin) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const st = ScrollTrigger.create({
@@ -35,7 +36,7 @@ export function Pinned({ children, className = '', end = '+=180%' }: Props) {
     });
 
     return () => st.kill();
-  }, [tier, end]);
+  }, [tier, end, canPin]);
 
   return (
     <div ref={ref} className={className}>

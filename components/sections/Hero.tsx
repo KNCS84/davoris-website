@@ -13,7 +13,7 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap, ScrollTrigger } from '@/lib/motion';
-import { useTier } from '@/lib/perf';
+import { useTier, useCanPin } from '@/lib/perf';
 import { CharTrack } from '@/components/motion/CharTrack';
 import { LineMask } from '@/components/motion/LineMask';
 import { SITE } from '@/content/site';
@@ -25,6 +25,7 @@ export function Hero() {
   const builtRef = useRef<HTMLDivElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
   const tier = useTier();
+  const canPin = useCanPin();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -43,8 +44,8 @@ export function Hero() {
       return;
     }
 
-    /* ---- TIER B: unpinned clip-wipe + parallax on the BUILT frame ---- */
-    if (tier === 'B') {
+    /* ---- TIER B / short viewport: unpinned clip-wipe + parallax on BUILT ---- */
+    if (tier === 'B' || !canPin) {
       gsap.set([sheet, lift], { opacity: 0 });
       gsap.set(built, { opacity: 1 });
       const wipe = gsap.fromTo(
@@ -102,7 +103,7 @@ export function Hero() {
         if (st.trigger === section) st.kill();
       });
     };
-  }, [tier]);
+  }, [tier, canPin]);
 
   return (
     <section className="hero section--dark" ref={sectionRef} aria-label="DNO Engineering Consultants">
@@ -130,11 +131,13 @@ export function Hero() {
           <p className="eyebrow hero__eyebrow">Municipal · Water · Transportation · Federal</p>
 
           <h1 className="hero__title display">
-            <CharTrack text="DNO" />
+            {/* Time-based entrance, NOT scroll-scrub: the brand name must be
+                visible at rest. A scrub from opacity 0 hides the hero at scroll 0. */}
+            <CharTrack text="DNO" scrub={false} />
           </h1>
 
           <p className="hero__sub display">
-            <LineMask as="span" lines={['ENGINEERING', 'CONSULTANTS']} className="hero__submask" />
+            <LineMask as="span" lines={['ENGINEERING', 'CONSULTANTS']} className="hero__submask" immediate />
           </p>
 
           <p className="lead hero__lead">{SITE.positioning}</p>

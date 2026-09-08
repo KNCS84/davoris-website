@@ -8,7 +8,7 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from '@/lib/motion';
-import { useTier } from '@/lib/perf';
+import { useTier, useCanPin } from '@/lib/perf';
 import { Pinned } from '@/components/motion/Pinned';
 import { Grain } from '@/components/motion/Grain';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
@@ -35,6 +35,7 @@ export function Positioning() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const blocksRef = useRef<HTMLDivElement | null>(null);
   const tier = useTier();
+  const canPin = useCanPin();
 
   useEffect(() => {
     const root = rootRef.current;
@@ -42,7 +43,7 @@ export function Positioning() {
     if (!root || !wrap) return;
     const blocks = Array.from(wrap.querySelectorAll<HTMLElement>('.pos__block'));
 
-    if (tier === 'C' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (tier === 'C' || !canPin || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.set(blocks, { opacity: 1, y: 0, clearProps: 'all' });
       return;
     }
@@ -65,10 +66,10 @@ export function Positioning() {
       tl.scrollTrigger?.kill();
       tl.kill();
     };
-  }, [tier]);
+  }, [tier, canPin]);
 
   return (
-    <Pinned end="+=180%" className={tier === 'C' ? 'pos--unpinned' : ''}>
+    <Pinned end="+=180%" className={tier === 'C' || !canPin ? 'pos--unpinned' : ''}>
       <div className="pos section--dark" ref={rootRef}>
         <Grain />
         <div className="pos__media" aria-hidden="true">

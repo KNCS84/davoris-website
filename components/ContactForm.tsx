@@ -1,144 +1,86 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { SERVICES, SITE } from '@/content';
 
-type Status = { type: 'idle' | 'ok' | 'err'; msg: string };
+import { useState, type FormEvent } from 'react';
+import { Button } from '@/components/primitives/Button';
+
+const SERVICES_OPTIONS = [
+  'Water Supply & Distribution',
+  'Road & Street Improvements',
+  'Design-Build Delivery',
+  'Master Planning',
+  'Regulatory & Funding Liaison',
+  'Total Project Management',
+  'Not sure yet',
+];
 
 export function ContactForm() {
-  const [status, setStatus] = useState<Status>({ type: 'idle', msg: '' });
-  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  // Math CAPTCHA operands (regenerated per mount)
-  const [captchaNums, setCaptchaNums] = useState<{ a: number; b: number } | null>(null);
-  useEffect(() => {
-    const x = Math.floor(Math.random() * 7) + 2;
-    const y = Math.floor(Math.random() * 7) + 2;
-    setCaptchaNums({ a: x, b: y });
-  }, []);
-  const a = captchaNums?.a ?? 0;
-  const b = captchaNums?.b ?? 0;
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitting(true);
-    setStatus({ type: 'idle', msg: '' });
-
-    const form = new FormData(e.currentTarget);
-    const honeypot = (form.get('hp') as string) || '';
-    const answer = (form.get('captcha') as string) || '';
-    const expected = (form.get('aVal') as string) + (form.get('bVal') as string);
-
-    // Honeypot must be empty
-    if (honeypot.trim() !== '') {
-      setStatus({ type: 'err', msg: 'Submission blocked.' });
-      setSubmitting(false);
-      return;
-    }
-    // Math CAPTCHA
-    if (parseInt(answer, 10) !== a + b) {
-      setStatus({ type: 'err', msg: 'Please check your answer to the spam question.' });
-      setSubmitting(false);
-      return;
-    }
-
-    const payload = {
-      fullName: form.get('fullName'),
-      company: form.get('company'),
-      phone: form.get('phone'),
-      email: form.get('email'),
-      service: form.get('service'),
-      details: form.get('details'),
-    };
-
+    setStatus('sending');
+    const fd = new FormData(e.currentTarget);
+    const body = Object.fromEntries(fd.entries());
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, captcha: answer, aVal: String(a), bVal: String(b) }),
+        body: JSON.stringify(body),
       });
-      const data = await res.json();
-      if (res.ok && data.ok) {
-        setStatus({ type: 'ok', msg: 'Thank you — your message has been sent. We will be in touch shortly.' });
-        (e.target as HTMLFormElement).reset();
-      } else {
-        setStatus({ type: 'err', msg: data.message || 'Something went wrong. Please try again or email us directly.' });
-      }
+      if (!res.ok) throw new Error('bad response');
+      setStatus('sent');
+      e.currentTarget.reset();
     } catch {
-      setStatus({ type: 'err', msg: 'Network error. Please email us at ' + SITE.email + ' directly.' });
-    } finally {
-      setSubmitting(false);
+      setStatus('error');
     }
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit} noValidate>
-      <div style={{ display: 'none' }} aria-hidden="true">
-      <input type="text" name="hp" tabIndex={-1} autoComplete="off" />
-    </div>
-
-      <div className="form__row form__row--2">
-        <div className="field">
-          <label htmlFor="fullName">Full Name</label>
-          <input id="fullName" name="fullName" type="text" required autoComplete="name" />
-        </div>
-        <div className="field">
-          <label htmlFor="company">Company / Organization</label>
-          <input id="company" name="company" type="text" autoComplete="organization" />
-        </div>
+    <form className="form" onSubmit={onSubmit} noValidate={false}>
+      <div className="form__field">
+        <label className="mono-xs" htmlFor="name">
+          Name
+        </label>
+        <input id="name" name="name" type="text" required autoComplete="name" />
       </div>
-
-      <div className="form__row form__row--2">
-        <div className="field">
-          <label htmlFor="phone">Phone Number</label>
-          <input id="phone" name="phone" type="tel" required autoComplete="tel" />
-        </div>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" required autoComplete="email" />
-        </div>
+      <div className="form__field">
+        <label className="mono-xs" htmlFor="org">
+          Organisation / agency
+        </label>
+        <input id="org" name="organisation" type="text" required autoComplete="organization" />
       </div>
-
-      <div className="field">
-        <label htmlFor="service">Service of Interest</label>
-        <select id="service" name="service" defaultValue="">
-          <option value="" disabled>
-            Select a service
-          </option>
-          {SERVICES.map((s) => (
-            <option key={s.slug} value={s.name}>
-              {s.name}
-            </option>
+      <div className="form__field">
+        <label className="mono-xs" htmlFor="email">
+          Email
+        </label>
+        <input id="email" name="email" type="email" required autoComplete="email" />
+      </div>
+      <div className="form__field">
+        <label className="mono-xs" htmlFor="service">
+          Service line
+        </label>
+        <select id="service" name="service" defaultValue={SERVICES_OPTIONS[6]}>
+          {SERVICES_OPTIONS.map((o) => (
+            <option key={o}>{o}</option>
           ))}
-          <option value="Other">Other</option>
         </select>
       </div>
-
-      <div className="field">
-        <label htmlFor="details">Project Details</label>
-        <textarea id="details" name="details" required />
+      <div className="form__field">
+        <label className="mono-xs" htmlFor="message">
+          The project, in a few lines
+        </label>
+        <textarea id="message" name="message" rows={5} required />
       </div>
 
-      <div className="form__row form__row--2">
-        <div className="field">
-          <label htmlFor="captcha">
-            Spam check: what is {captchaNums ? `${a} + ${b}` : '...'}?
-          </label>
-          <input id="captcha" name="captcha" type="text" inputMode="numeric" required autoComplete="off" />
-          <input type="hidden" name="aVal" value={a} />
-          <input type="hidden" name="bVal" value={b} />
-        </div>
-        <div className="field" style={{ justifyContent: 'flex-end' }}>
-          <button type="submit" className="btn btn--orange" disabled={submitting} style={{ width: '100%' }}>
-            {submitting ? 'Sending…' : 'Send Message'}
-          </button>
-        </div>
+      <div>
+        <Button type="submit">Send inquiry</Button>
       </div>
 
-      {status.type !== 'idle' && (
-        <p className={`form__status ${status.type === 'ok' ? 'form__status--ok' : 'form__status--err'}`} role="status">
-          {status.msg}
-        </p>
-      )}
+      <p className="form__status mono-xs" role="status" aria-live="polite">
+        {status === 'sending' && 'Sending…'}
+        {status === 'sent' && 'Received. We respond to qualified inquiries within the week.'}
+        {status === 'error' && 'Something failed on our side. Please email us directly.'}
+      </p>
     </form>
   );
 }

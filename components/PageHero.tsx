@@ -1,37 +1,27 @@
-import { Media } from './Media';
-import { Reveal } from './Reveal';
+import Image from 'next/image';
+import { Container } from '@/components/primitives/Container';
+import { Eyebrow } from '@/components/primitives/Eyebrow';
+import { LineMask } from '@/components/motion/LineMask';
 
-export function PageHero({
-  image,
-  label,
-  title,
-  subhead,
-}: {
+interface Props {
+  eyebrow: string;
+  titleLines: string[];
+  lead?: string;
   image: string;
-  label: string;
-  title: string;
-  subhead?: string;
-}) {
+  alt: string;
+}
+
+export function PageHero({ eyebrow, titleLines, lead, image, alt }: Props) {
   return (
-    <section className="pagehero">
-      <Media src={image} className="pagehero__bg" gradient />
-      <div
-        className="pagehero__overlay"
-        style={{ background: 'linear-gradient(180deg, rgba(10,10,12,0.5), rgba(10,10,12,0.75))' }}
-      />
-      <div className="container pagehero__inner">
-        <Reveal>
-          <p className="eyebrow eyebrow--lime">{label}</p>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h1 className="h1 mt-2">{title}</h1>
-        </Reveal>
-        {subhead && (
-          <Reveal delay={0.1}>
-            <p className="lead mt-3">{subhead}</p>
-          </Reveal>
-        )}
+    <header className="pagehero section--dark">
+      <div className="pagehero__media" aria-hidden="true">
+        <Image src={image} alt="" fill sizes="100vw" priority />
       </div>
-    </section>
+      <Container className="pagehero__inner">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <LineMask as="h1" className="h1 mt-stack" lines={titleLines} />
+        {lead ? <p className="lead mt-stack">{lead}</p> : null}
+      </Container>
+    </header>
   );
 }

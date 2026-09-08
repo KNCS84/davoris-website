@@ -1,0 +1,115 @@
+/* ==========================================================================
+   DNO ENGINEERING CONSULTANTS — DESIGN TOKENS
+   Generated from docs/ART-DIRECTION-DNO.md §2.2–§2.4.
+   NOTHING here is invented at build time. Contrast values are WCAG 2.2 verified.
+   ========================================================================== */
+
+:root {
+  /* ── GROUNDS (dark) ─────────────────────────────────────────────────────
+     paper-on-ink ratios all clear 11:1; ink-on-paper 15.85:1.             */
+  --ink-900: #0B0C0E;   /* dominant dark ground       · paper-on-it 15.85:1 */
+  --ink-850: #101215;   /* recessed dark              · paper-on-it 15.19:1 */
+  --ink-800: #15171A;   /* raised dark surface        · paper-on-it 14.54:1 */
+  --ink-700: #1E2126;   /* dark card / panel          · paper-on-it 13.07:1 */
+  --ink-600: #2A2E34;   /* dark hover state           · paper-on-it 11.05:1 */
+
+  /* ── GROUNDS (light) ──────────────────────────────────────────────────── */
+  --paper-100: #EAE7E0; /* dominant light ground      · ink-on-it 15.85:1   */
+  --paper-200: #E1DDD3; /* raised light surface       · ink-on-it 14.43:1   */
+  --paper-300: #D5D0C4; /* light card / panel         · ink-on-it 12.72:1   */
+
+  --rule-dark:  #24282E; /* hairline on dark          · accent-on-it 5.16:1 */
+  --rule-light: #C9C3B4; /* hairline on light         · ink-on-it 11.13:1   */
+
+  /* ── ACCENT — hue-locked 22.1°, TWO tokens (contrast audit) ───────────── */
+  --accent:      #FF6A13; /* DARK GROUNDS ONLY · 6.82:1 on ink-900           */
+  --accent-ink:  #9C3A00; /* LIGHT GROUNDS ONLY · 5.63/5.13/4.52 on paper 100/200/300 */
+  --accent-deep: #6B3515; /* large light fills  · 7.93:1 on paper-100        */
+  --accent-glow: rgba(255, 106, 19, 0.08); /* dark-ground wash only, never a fill */
+
+  /* ── SECONDARY TEXT ───────────────────────────────────────────────────── */
+  --muted-on-dark:  #A8ACB4; /* 8.60:1 on ink-900  ✅ */
+  --muted-on-light: #5A5751; /* 5.83:1 on paper-100 ✅ */
+
+  /* ── ON-ACCENT (button labels) — NEVER white (2.87:1 ❌) ───────────────── */
+  --on-accent: #0B0C0E;    /* 6.82:1 ✅ */
+
+  /* ── TYPE FACES — self-hosted Fontsource variable fonts ─────────────────── */
+  --font-display: 'Archivo Variable', 'Helvetica Neue', sans-serif;
+  --font-sans: 'Geist Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* ── TYPE SCALE (fluid 390→1440) ──────────────────────────────────────────
+     Mixed ratio: ~1.26 reading ladder, ~1.41–1.54 display ladder.          */
+  --step-xs: clamp(0.6875rem, 0.6643rem + 0.0952vw, 0.75rem);   /* 11→12  mono eyebrow */
+  --step-sm: clamp(0.875rem,  0.8518rem + 0.0952vw, 0.9375rem); /* 14→15  UI / data   */
+  --step-0:  clamp(1rem,      0.9768rem + 0.0952vw, 1.0625rem); /* 16→17  BODY        */
+  --step-1:  clamp(1.1875rem, 1.129rem  + 0.2381vw, 1.3438rem); /* 19→21.5 lead       */
+  --step-2:  clamp(1.375rem,  1.282rem  + 0.381vw,  1.625rem);  /* 22→26  h4          */
+  --step-3:  clamp(1.625rem,  1.439rem  + 0.762vw,  2.125rem);  /* 26→34  h3          */
+  --step-4:  clamp(2rem,      1.629rem  + 1.524vw,  3rem);      /* 32→48  h2          */
+  --step-5:  clamp(2.5rem,    1.85rem   + 2.667vw,  4.25rem);   /* 40→68  h1          */
+  --step-6:  clamp(3.25rem,   2.229rem  + 4.19vw,   6rem);      /* 52→96  display     */
+  --step-7:  clamp(4rem,      2.05rem   + 8vw,      9.25rem);   /* 64→148 HERO        */
+
+  /* ── LINE HEIGHTS ─────────────────────────────────────────────────────── */
+  --lh-display: 0.92;
+  --lh-h:       1.0;
+  --lh-sub:     1.12;
+  --lh-lead:    1.45;
+  --lh-body:    1.6;
+  --lh-mono:    1.5;
+
+  /* ── TRACKING ─────────────────────────────────────────────────────────── */
+  --track-display: -0.035em;
+  --track-h1:      -0.035em;
+  --track-h2:      -0.025em;
+  --track-h3:      -0.015em;
+  --track-body:    0em;
+  --track-eyebrow: 0.18em;
+
+  /* ── MEASURE ──────────────────────────────────────────────────────────── */
+  --measure-body: 62ch;
+  --measure-card: 38ch;
+
+  /* ── SPACING RHYTHM (fluid 390→1440) ────────────────────────────────────── */
+  --space-section: clamp(64px, 1.59rem + 9.9vw, 168px);
+  --space-block:   clamp(40px, 1.2rem  + 5.33vw, 96px);
+  --space-stack:   clamp(24px, 0.943rem + 2.29vw, 48px);
+  --space-inline:  clamp(12px, 0.564rem + 0.762vw, 20px);
+
+  /* ── GRID ────────────────────────────────────────────────────────────── */
+  --container: 1440px;
+  --gutter: 20px;
+  --cols: 4;
+
+  /* ── RADII (deliberate scale: 0 / 2 / 999) ─────────────────────────────── */
+  --r-none: 0;
+  --r-sharp: 2px;
+  --r-pill: 999px;
+
+  /* ── MOTION: two curves, five durations ─────────────────────────────────── */
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);     /* THE HOUSE CURVE  */
+  --ease-machine: cubic-bezier(0.83, 0, 0.17, 1);    /* THE MACHINE CURVE */
+  --dur-instant: 120ms;
+  --dur-fast:    240ms;
+  --dur-base:    600ms;
+  --dur-slow:    1000ms;
+  --dur-glacial: 1600ms;
+  --stagger-sib: 60ms;
+  --stagger-char: 40ms;
+
+  /* ── GRAIN / Z-INDEX ──────────────────────────────────────────────────── */
+  --grain-opacity: 0.045;
+  --z-grain: 60;
+  --z-cursor: 70;
+  --z-nav: 50;
+  --z-overlay: 55;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; --cols: 8; }
+}
+@media (min-width: 1280px) {
+  :root { --gutter: 40px; --cols: 12; }
+}

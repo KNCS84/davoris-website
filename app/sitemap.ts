@@ -1,15 +1,21 @@
 import type { MetadataRoute } from 'next';
-import { SITE, SERVICES } from '@/content';
+import { SITE } from '@/content/site';
+import { SERVICES } from '@/content/services';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = SITE.domain;
-  const routes = ['', '/about', '/services', '/projects', '/contact'];
-  const serviceRoutes = SERVICES.map((s) => `/services/${s.slug}`);
-  const all = [...routes, ...serviceRoutes];
-  return all.map((path) => ({
-    url: `${base}${path}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: path === '' ? 1 : 0.7,
+  const now = new Date();
+  const routes: MetadataRoute.Sitemap = [
+    { url: SITE.domain, lastModified: now, changeFrequency: 'monthly', priority: 1 },
+    { url: `${SITE.domain}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE.domain}/projects`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE.domain}/about`, lastModified: now, changeFrequency: 'yearly', priority: 0.6 },
+    { url: `${SITE.domain}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
+  ];
+  const services: MetadataRoute.Sitemap = SERVICES.map((s) => ({
+    url: `${SITE.domain}/services/${s.slug}`,
+    lastModified: now,
+    changeFrequency: 'yearly',
+    priority: 0.7,
   }));
+  return [...routes, ...services];
 }

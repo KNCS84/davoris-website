@@ -1,43 +1,57 @@
 import type { Metadata } from 'next';
-import { SERVICES } from '@/content';
+import Link from 'next/link';
+import { SERVICES } from '@/content/services';
 import { PageHero } from '@/components/PageHero';
-import { ServiceCard } from '@/components/cards';
-import { Reveal } from '@/components/Reveal';
-import { ClosingCta } from '@/components/ClosingCta';
+import { Container } from '@/components/primitives/Container';
+import { Section } from '@/components/primitives/Section';
+import { LineMask } from '@/components/motion/LineMask';
+import { Eyebrow } from '@/components/primitives/Eyebrow';
 
 export const metadata: Metadata = {
-  title: 'Civil Engineering Services | Davoris Limited, Asaba, Nigeria',
+  title: 'Services',
   description:
-    'Explore Davoris Limited’s civil engineering services — municipal engineering, land development & surveying, building engineering, environmental services, transportation, and materials testing.',
+    'Six service lines under one accountable team: water supply, road and street improvements, design-build, master planning, regulatory and funding liaison, and total project management.',
 };
 
 export default function ServicesPage() {
   return (
     <>
       <PageHero
-        image="/images/services-hero.png"
-        label="SERVICES"
-        title="Capability built for complexity."
-        subhead="Six specialties. One accountable team. Davoris Limited delivers civil engineering services across the full project lifecycle."
+        eyebrow="Capabilities"
+        titleLines={['Six lines.', 'One accountable team.']}
+        lead="Every line is staffed end to end by the team that signs the as-built."
+        image="/dno/project-masterplan.webp"
+        alt=""
       />
 
-      <section className="section">
-        <div className="container">
-          <div className="card-grid card-grid--3">
-            {SERVICES.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 0.06}>
-                <ServiceCard service={s} />
-              </Reveal>
+      <Section tone="light">
+        <Container>
+          <ul className="cap__list">
+            {SERVICES.map((s) => (
+              <li className="cap__row" key={s.slug}>
+                <Link href={`/services/${s.slug}`} className="cap__link">
+                  <span className="cap__num mono-xs">{s.number}</span>
+                  <span className="cap__name h3">{s.name}</span>
+                  <span className="cap__card mono">{s.card}</span>
+                  <span className="cap__arrow mono-xs" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ul>
+        </Container>
+      </Section>
 
-      <ClosingCta
-        h2="Not sure which specialty your project needs?"
-        body="Most projects touch more than one. Tell us what you’re trying to build and we’ll scope the engineering support around it."
-        cta="Request a consultation"
-      />
+      <Section tone="dark" ruleTop>
+        <Container>
+          <Eyebrow>How we work</Eyebrow>
+          <LineMask as="h2" className="h2 mt-stack" lines={['The same rigour,', 'every line.']} />
+          <p className="lead mt-stack">
+            Scoping, design, agency coordination, and handover — one team, one record, no diluted accountability.
+          </p>
+        </Container>
+      </Section>
     </>
   );
 }

@@ -1,138 +1,90 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { SERVICES, SERVICE_SLUGS, getService } from '@/content';
+import { SERVICES } from '@/content/services';
 import { PageHero } from '@/components/PageHero';
-import { Media } from '@/components/Media';
-import { Reveal } from '@/components/Reveal';
-import { IncludesList, RelatedCard } from '@/components/cards';
-import { ClosingCta } from '@/components/ClosingCta';
+import { Container } from '@/components/primitives/Container';
+import { Section } from '@/components/primitives/Section';
+import { Eyebrow } from '@/components/primitives/Eyebrow';
+import { LineMask } from '@/components/motion/LineMask';
+import { Button } from '@/components/primitives/Button';
+import { CTA } from '@/content/site';
+
+interface Props {
+  params: { slug: string };
+}
 
 export function generateStaticParams() {
-  return SERVICE_SLUGS.map((slug) => ({ slug }));
+  return SERVICES.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const s = getService(params.slug);
+export function generateMetadata({ params }: Props): Metadata {
+  const s = SERVICES.find((x) => x.slug === params.slug);
   if (!s) return { title: 'Service not found' };
-  return { title: s.metaTitle, description: s.metaDescription };
+  return { title: s.name, description: s.lead };
 }
 
-export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
-  const service = getService(params.slug);
-  if (!service) notFound();
-
-  const related = service.related
-    .map((slug) => getService(slug))
-    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+export default function ServiceDetailPage({ params }: Props) {
+  const s = SERVICES.find((x) => x.slug === params.slug);
+  if (!s) notFound();
 
   return (
     <>
-      {/* 1. Hero */}
-      <PageHero image={service.heroImage} label={service.label} title={service.name} subhead={service.subhead} />
+      <PageHero eyebrow={`Service ${s.number}`} titleLines={s.name.split(' ')} lead={s.lead} image={s.image.replace('.png', '.webp')} alt="" />
 
-      {/* 2. Overview */}
-      <section className="section">
-        <div className="container" style={{ maxWidth: '920px' }}>
-          {service.overview.map((p, i) => (
-            <Reveal key={i} delay={i * 0.05}>
-              <p className="lead mt-3">{p}</p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. What This Includes */}
-      <section className="section section--offwhite-200">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">WHAT THIS INCLUDES</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="h2 mt-2">Scope of the work.</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-4" style={{ maxWidth: '920px' }}>
-              <IncludesList items={service.includes} />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 4. Supporting image band */}
-      <Media src={service.supportImage} className="imgband" />
-
-      {/* 5. Our Process */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">OUR PROCESS</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="h2 mt-2">How we deliver.</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="process mt-4">
-              {service.process.map((step, i) => (
-                <div className="step" key={i}>
-                  <div className="step__num">{step.num}</div>
-                  <div className="step__title">{step.title}</div>
-                </div>
+      <Section tone="light">
+        <Container>
+          <div className="svc__meta">
+            <div>
+              <Eyebrow>Overview</Eyebrow>
+              {s.overview.map((p, i) => (
+                <p className="body mt-stack" key={i}>
+                  {p}
+                </p>
               ))}
             </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 6. Who This Is For */}
-      <section className="section section--offwhite-200">
-        <div className="container" style={{ maxWidth: '920px' }}>
-          <Reveal>
-            <p className="eyebrow">WHO THIS IS FOR</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="lead mt-3">{service.whoFor}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 7. Why It Matters */}
-      <section className="section section--dark">
-        <div className="container" style={{ maxWidth: '920px' }}>
-          <Reveal>
-            <p className="eyebrow eyebrow--lime">WHY IT MATTERS</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="callout-lime callout-lime--dark mt-3">{service.whyMatters}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 8. Related Services */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">RELATED SERVICES</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="h2 mt-2">Works well alongside.</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="related-grid mt-4">
-              {related.map((r) => (
-                <RelatedCard key={r.slug} service={r} />
-              ))}
+            <div>
+              <Eyebrow>Deliverables</Eyebrow>
+              <ul className="svc__list mt-stack">
+                {s.deliverables.map((d) => (
+                  <li className="mono" key={d}>
+                    {d}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Container>
+      </Section>
 
-      {/* 9. Closing CTA */}
-      <ClosingCta
-        label="LET'S BUILD"
-        h2="Ready to talk about your project?"
-        body="Whether this is the only service you need or one part of a larger project, we’re ready to scope it with you."
-        cta="Request a consultation"
-      />
+      <Section tone="dark" ruleTop>
+        <Container>
+          <Eyebrow>Process</Eyebrow>
+          <div className="svc__process mt-block">
+            {s.process.map((p) => (
+              <div key={p.num}>
+                <p className="svc__process-n mono-xs">{p.num}</p>
+                <p className="h4 mt-inline">{p.title}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="craft__specs mt-block" style={{ borderLeft: '1px solid var(--rule-dark)' }}>
+            <p className="mono-xs craft__specs-title">Typical parameters</p>
+            <ul>
+              {s.typical.map((t) => (
+                <li className="craft__spec" key={t.label}>
+                  <span className="mono-xs">{t.label}</span>
+                  <span className="mono craft__spec-v">{t.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-block">
+            <Button href={CTA.href}>{CTA.label}</Button>
+          </div>
+        </Container>
+      </Section>
     </>
   );
 }

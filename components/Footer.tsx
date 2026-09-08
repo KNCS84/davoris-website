@@ -1,50 +1,69 @@
+/* ==========================================================================
+   Footer — a TRUST surface. For regulated public-sector work the licence and
+   registration block does real conversion work; it is not decoration.
+   Values are client-supplied; absent values render as title-block fields.
+   ========================================================================== */
 import Link from 'next/link';
-import { SITE, FOOTER_SERVICES, NAV } from '@/content';
+import { NAV, SITE, CTA_SECONDARY } from '@/content/site';
+import { Field } from '@/components/primitives/Field';
+import { Container } from '@/components/primitives/Container';
 
 export function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
+    <footer className="footer section--dark-alt">
+      <Container>
         <div className="footer__grid">
-          <div>
-            <div className="footer__logo">{SITE.company}</div>
-            <p className="footer__tag">{SITE.tagline}</p>
-            <p className="footer__tag mt-3">
-              {SITE.address.line1}
-              <br />
-              {SITE.address.line2}
-            </p>
-            <p className="footer__tag mt-3">
-              Email: {SITE.email}
-              <br />
-              Phone: {SITE.phone}
-            </p>
+          <div className="footer__col footer__col--brand">
+            <p className="display footer__wordmark">{SITE.wordmark}</p>
+            <p className="mono footer__sector">{SITE.sector}</p>
+            <p className="body footer__positioning">{SITE.positioning}</p>
           </div>
-          <div>
-            <h4>Explore</h4>
-            <ul style={{ display: 'grid', gap: '0.6rem' }}>
+
+          <div className="footer__col">
+            <p className="eyebrow">Navigate</p>
+            <ul className="footer__list">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href}>{n.label}</Link>
+                  <Link href={n.href} className="footer__link mono">
+                    {n.label}
+                  </Link>
                 </li>
               ))}
+              <li>
+                <Link href={CTA_SECONDARY.href} className="footer__link mono">
+                  {CTA_SECONDARY.label}
+                </Link>
+              </li>
             </ul>
           </div>
-          <div>
-            <h4>Services</h4>
-            <ul style={{ display: 'grid', gap: '0.6rem' }}>
-              {FOOTER_SERVICES.map((s) => (
-                <li key={s.href}>
-                  <Link href={s.href}>{s.name}</Link>
-                </li>
-              ))}
+
+          <div className="footer__col">
+            <p className="eyebrow">Contact</p>
+            <ul className="footer__list mono">
+              <li>{SITE.email ? <a href={`mailto:${SITE.email}`}>{SITE.email}</a> : <Field token="{{EMAIL}}" />}</li>
+              <li>{SITE.phone ? <a href={SITE.phoneHref ?? '#'}>{SITE.phone}</a> : <Field token="{{PHONE}}" />}</li>
+              <li>{SITE.addressLine1 ?? <Field token="{{ADDRESS_1}}" />}</li>
+              <li>{SITE.addressLine2 ?? <Field token="{{ADDRESS_2}}" />}</li>
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <p className="eyebrow">Credentials</p>
+            <ul className="footer__list mono">
+              <li>{SITE.registration ?? <Field token="{{PE_FIRM_REG}}" />}</li>
+              <li>{SITE.founded ? `Established ${SITE.founded}` : <Field token="{{FOUNDED}}" />}</li>
+              <li>
+                <Field token="{{DBE_WBE_CERTS}}" />
+              </li>
             </ul>
           </div>
         </div>
-        <div className="footer__bottom">
-          © 2026 {SITE.company}. All rights reserved. Designed and Powered by {SITE.credits.replace('Designed and Powered by ', '')}
+
+        <div className="footer__base">
+          <p className="mono-xs">© {new Date().getFullYear()} {SITE.name}</p>
+          <p className="mono-xs footer__rule">Drawn. Checked. Approved.</p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

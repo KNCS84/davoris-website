@@ -1,64 +1,76 @@
 import type { Metadata } from 'next';
-import { Fraunces, Inter, IBM_Plex_Mono } from 'next/font/google';
+import '@fontsource-variable/archivo/wdth.css'; // wght + wdth axes, self-hosted
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 import './globals.css';
-import { SITE } from '@/content';
+import { SITE, NAV } from '@/content/site';
+import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
-import { JsonLd } from '@/components/JsonLd';
+import { Cursor } from '@/components/motion/Cursor';
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600'],
-});
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
-const plex = IBM_Plex_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-  weight: ['400', '500'],
-});
+// Fonts are self-hosted via Fontsource (variable, incl. Archivo wdth axis).
+// Family names are wired in styles/tokens.css. No next/font, no external CDN.
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: {
-    default: `${SITE.company} — ${SITE.tagline}`,
-    template: `%s | ${SITE.company}`,
+    default: `${SITE.name} — ${SITE.sector}`,
+    template: `%s | ${SITE.short}`,
   },
-  description: `${SITE.business} — ${SITE.tagline}. Incorporated 1994, Asaba, Delta State, Nigeria.`,
+  description:
+    'Consulting engineers to cities, water districts, and agencies. Water supply, road and street improvements, design-build delivery, and master planning — total project management from master plan to final inspection.',
   keywords: [
-    'civil engineering Nigeria',
     'municipal engineering',
-    'land surveying Nigeria',
-    'building engineering',
-    'transportation engineering',
-    'materials testing',
-    'Asaba Delta State',
+    'water supply engineering',
+    'design-build',
+    'master planning',
+    'public works consulting engineer',
   ],
-  authors: [{ name: SITE.company }],
   openGraph: {
     type: 'website',
     url: SITE.domain,
-    siteName: SITE.company,
-    title: `${SITE.company} — ${SITE.tagline}`,
-    description: SITE.business,
+    siteName: SITE.name,
+    title: `${SITE.name} — ${SITE.sector}`,
+    description: SITE.positioning,
   },
-  twitter: { card: 'summary_large_image', title: `${SITE.company}`, description: SITE.tagline },
   robots: { index: true, follow: true },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: SITE.name,
+  description: SITE.positioning,
+  url: SITE.domain,
+  areaServed: 'United States',
+  knowsAbout: [
+    'Water supply and distribution engineering',
+    'Road and street improvements',
+    'Design-build delivery',
+    'Municipal master planning',
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${plex.variable}`}>
+    <html lang="en">
+      <head>
+        {/* Progressive-enhancement gate: motion that hides content is armed
+            ONLY when JS is present, so no-JS users see everything. */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('js')` }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
       <body>
-        <JsonLd />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+          <Cursor />
+        </SmoothScroll>
       </body>
     </html>
   );

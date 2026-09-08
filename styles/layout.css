@@ -1,0 +1,72 @@
+/* ==========================================================================
+   LAYOUT — container, grid, section rhythm
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* 12/8/4-col grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gutter);
+}
+
+/* Section rhythm: asymmetric — slightly more air below than above,
+   so each section lands before the next one starts. */
+.section {
+  position: relative;
+  padding-block: var(--space-section) calc(var(--space-section) * 1.15);
+}
+
+.section--dark      { background: var(--ink-900); color: var(--paper-100); }
+.section--dark-alt  { background: var(--ink-850); color: var(--paper-100); }
+.section--light     { background: var(--paper-100); color: var(--ink-900); }
+.section--light-alt { background: var(--paper-200); color: var(--ink-900); }
+
+/* Hairline dividers between chapters */
+.rule-top-dark  { border-top: 1px solid var(--rule-dark); }
+.rule-top-light { border-top: 1px solid var(--rule-light); }
+
+/* Horizontal hairline primitive */
+.rule {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.18;
+  border: 0;
+  width: 100%;
+}
+.rule--accent { background: var(--accent); opacity: 1; }
+
+/* Utility spacing */
+.mt-stack  { margin-top: var(--space-stack); }
+.mt-block  { margin-top: var(--space-block); }
+.mt-inline { margin-top: var(--space-inline); }
+
+/* Column spans that collapse sensibly per breakpoint */
+.col-full  { grid-column: 1 / -1; }
+.col-7     { grid-column: span 4; }
+.col-5     { grid-column: span 4; }
+.col-8     { grid-column: span 4; }
+.col-4     { grid-column: span 4; }
+@media (min-width: 768px) {
+  .col-7 { grid-column: span 5; }
+  .col-5 { grid-column: span 3; }
+  .col-8 { grid-column: span 5; }
+  .col-4 { grid-column: span 3; }
+}
+@media (min-width: 1280px) {
+  .col-7 { grid-column: span 7; }
+  .col-5 { grid-column: span 5; }
+  .col-8 { grid-column: span 8; }
+  .col-4 { grid-column: span 4; }
+}
+
+/* Display type is permitted to bleed to the container edge on desktop */
+@media (min-width: 1280px) {
+  .bleed { margin-inline: calc(var(--gutter) * -1); }
+}

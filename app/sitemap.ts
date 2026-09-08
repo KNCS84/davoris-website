@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/content/site';
 import { SERVICES } from '@/content/services';
+import { ALL_PROJECTS } from '@/content/projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -17,5 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'yearly',
     priority: 0.7,
   }));
-  return [...routes, ...services];
+  const projects: MetadataRoute.Sitemap = ALL_PROJECTS.map((p) => ({
+    url: `${SITE.domain}/projects/${p.slug}`,
+    lastModified: now,
+    changeFrequency: 'yearly',
+    priority: 0.6,
+  }));
+  return [...routes, ...services, ...projects];
 }

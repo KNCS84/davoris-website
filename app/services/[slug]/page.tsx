@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { SERVICES } from '@/content/services';
 import { PageHero } from '@/components/PageHero';
 import { Container } from '@/components/primitives/Container';
 import { Section } from '@/components/primitives/Section';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { LineMask } from '@/components/motion/LineMask';
-import { Button } from '@/components/primitives/Button';
-import { CTA } from '@/content/site';
+import { PageCta } from '@/components/sections/PageCta';
 
 interface Props {
   params: { slug: string };
@@ -24,12 +24,20 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function ServiceDetailPage({ params }: Props) {
-  const s = SERVICES.find((x) => x.slug === params.slug);
-  if (!s) notFound();
+  const idx = SERVICES.findIndex((x) => x.slug === params.slug);
+  if (idx === -1) notFound();
+  const s = SERVICES[idx];
+  const related = [SERVICES[(idx + 1) % SERVICES.length], SERVICES[(idx + 2) % SERVICES.length]];
 
   return (
     <>
-      <PageHero eyebrow={`Service ${s.number}`} titleLines={s.name.split(' ')} lead={s.lead} image={s.image.replace('.png', '.webp')} alt="" />
+      <PageHero
+        eyebrow={`Service ${s.number}`}
+        titleLines={s.name.split(' ')}
+        lead={s.lead}
+        image={s.image}
+        alt=""
+      />
 
       <Section tone="light">
         <Container>
@@ -68,7 +76,7 @@ export default function ServiceDetailPage({ params }: Props) {
             ))}
           </div>
 
-          <div className="craft__specs mt-block" style={{ borderLeft: '1px solid var(--rule-dark)' }}>
+          <div className="craft__specs mt-block">
             <p className="mono-xs craft__specs-title">Typical parameters</p>
             <ul>
               {s.typical.map((t) => (
@@ -78,13 +86,31 @@ export default function ServiceDetailPage({ params }: Props) {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="mt-block">
-            <Button href={CTA.href}>{CTA.label}</Button>
+            <p className="mono-xs mt-stack" style={{ color: 'var(--muted-on-dark)' }}>
+              Values are industry-typical design parameters, not project-specific claims.
+            </p>
           </div>
         </Container>
       </Section>
+
+      <Section tone="light-alt" ruleTop>
+        <Container>
+          <Eyebrow>Related lines</Eyebrow>
+          <ul className="related mt-stack">
+            {related.map((r) => (
+              <li key={r.slug}>
+                <Link href={`/services/${r.slug}`} className="related__link" data-cursor="Open service">
+                  <span className="mono-xs related__num">{r.number}</span>
+                  <span className="h4 related__name">{r.name}</span>
+                  <span className="mono related__card">{r.card}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      <PageCta lines={['Scope this line', 'with us.']} />
     </>
   );
 }

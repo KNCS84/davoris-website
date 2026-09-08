@@ -1,7 +1,8 @@
 /* ==========================================================================
-   PROOF — COUNTER-UP over PIN-STACK.
-   Headline stats are client-supplied; absent numbers render as drawing
-   title-block fields. The pinned stack carries the three commitments.
+   PROOF, split into two reusable bands so pages can compose them:
+   - StatsStrip: the animated counters (home credibility band)
+   - Commitments: the pinned stack of three commitments (Approach page)
+   Numbers are client-supplied; null renders a drawing title-block field.
    ========================================================================== */
 'use client';
 
@@ -34,37 +35,7 @@ const COMMITMENTS = [
   },
 ];
 
-export function Proof() {
-  const stackRef = useRef<HTMLDivElement | null>(null);
-  const tier = useTier();
-  const canPin = useCanPin();
-
-  useEffect(() => {
-    const stack = stackRef.current;
-    if (!stack) return;
-    const cards = Array.from(stack.querySelectorAll<HTMLElement>('.proof__card'));
-
-    if (tier === 'C' || !canPin || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.set(cards, { yPercent: 0, scale: 1, opacity: 1, clearProps: 'all' });
-      return;
-    }
-
-    gsap.set(cards, { yPercent: 0, scale: 1, opacity: 1 });
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: stack, start: 'top top', end: '+=160%', scrub: 0.5 },
-    });
-    cards.forEach((card, i) => {
-      if (i === 0) return;
-      tl.fromTo(card, { yPercent: 105 }, { yPercent: 0, ease: 'none', duration: 0.3 }, (i - 1) * 0.33)
-        .to(cards[i - 1], { scale: 0.95, opacity: 0.55, yPercent: -5, ease: 'none', duration: 0.3 }, (i - 1) * 0.33);
-    });
-
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-    };
-  }, [tier, canPin]);
-
+export function StatsStrip() {
   return (
     <section className="section section--dark-alt proof" id="proof">
       <Grain />
@@ -100,23 +71,57 @@ export function Proof() {
           ))}
         </div>
       </Container>
-
-      {/* Pinned stack of commitments */}
-      <Pinned end="+=160%" className={tier === 'C' || !canPin ? 'proof__stack--unpinned' : ''}>
-        <div className="proof__stack" ref={stackRef}>
-          <Container>
-            <div className="proof__stack-inner">
-              {COMMITMENTS.map((c) => (
-                <article className="proof__card" key={c.k}>
-                  <p className="mono-xs proof__card-k">{c.k}</p>
-                  <h3 className="h3 proof__card-t">{c.t}</h3>
-                  <p className="lead proof__card-d">{c.d}</p>
-                </article>
-              ))}
-            </div>
-          </Container>
-        </div>
-      </Pinned>
     </section>
+  );
+}
+
+export function Commitments() {
+  const stackRef = useRef<HTMLDivElement | null>(null);
+  const tier = useTier();
+  const canPin = useCanPin();
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll<HTMLElement>('.proof__card'));
+
+    if (tier === 'C' || !canPin || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(cards, { yPercent: 0, scale: 1, opacity: 1, clearProps: 'all' });
+      return;
+    }
+
+    gsap.set(cards, { yPercent: 0, scale: 1, opacity: 1 });
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: stack, start: 'top top', end: '+=160%', scrub: 0.5 },
+    });
+    cards.forEach((card, i) => {
+      if (i === 0) return;
+      tl.fromTo(card, { yPercent: 105 }, { yPercent: 0, ease: 'none', duration: 0.3 }, (i - 1) * 0.33)
+        .to(cards[i - 1], { scale: 0.95, opacity: 0.55, yPercent: -5, ease: 'none', duration: 0.3 }, (i - 1) * 0.33);
+    });
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
+  }, [tier, canPin]);
+
+  return (
+    <Pinned end="+=160%" className={tier === 'C' || !canPin ? 'proof__stack--unpinned' : ''}>
+      <div className="proof__stack section--dark" ref={stackRef}>
+        <Container>
+          <Eyebrow>What we hold to</Eyebrow>
+          <div className="proof__stack-inner">
+            {COMMITMENTS.map((c) => (
+              <article className="proof__card" key={c.k}>
+                <p className="mono-xs proof__card-k">{c.k}</p>
+                <h3 className="h3 proof__card-t">{c.t}</h3>
+                <p className="lead proof__card-d">{c.d}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </div>
+    </Pinned>
   );
 }

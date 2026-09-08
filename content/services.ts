@@ -48,7 +48,7 @@ export const SERVICES: Service[] = [
       { label: 'Min. residual pressure', value: '35 psi at peak hour' },
       { label: 'Fire flow basis', value: 'Per ISO / insurance grade' },
     ],
-    image: '/dno/project-water.png',
+    image: '/dno/project-water.webp',
   },
   {
     slug: 'road-street',
@@ -80,7 +80,7 @@ export const SERVICES: Service[] = [
       { label: 'Cross-slope', value: '2.0% typical' },
       { label: 'Drainage return period', value: '10-yr minor / 50-yr major' },
     ],
-    image: '/dno/project-road.png',
+    image: '/dno/project-road.webp',
   },
   {
     slug: 'design-build',
@@ -112,7 +112,7 @@ export const SERVICES: Service[] = [
       { label: 'Cost control', value: 'Open-book where applicable' },
       { label: 'Change management', value: 'Documented, priced, approved in writing' },
     ],
-    image: '/dno/section-positioning.png',
+    image: '/dno/section-positioning.webp',
   },
   {
     slug: 'master-planning',
@@ -144,7 +144,7 @@ export const SERVICES: Service[] = [
       { label: 'Prioritisation', value: 'Weighted condition / risk / demand' },
       { label: 'Deliverable', value: 'Adoptable capital plan' },
     ],
-    image: '/dno/project-masterplan.png',
+    image: '/dno/project-masterplan.webp',
   },
   {
     slug: 'regulatory-funding',
@@ -176,7 +176,7 @@ export const SERVICES: Service[] = [
       { label: 'Documentation', value: 'Funder-ready, audit-traceable' },
       { label: 'Continuity', value: 'Same team through closeout' },
     ],
-    image: '/dno/section-proof.png',
+    image: '/dno/section-proof.webp',
   },
   {
     slug: 'project-management',
@@ -208,6 +208,6 @@ export const SERVICES: Service[] = [
       { label: 'Quality gates', value: 'Independent review before issue' },
       { label: 'Handover', value: 'As-builts, O&M, warranties compiled' },
     ],
-    image: '/dno/section-craft.png',
+    image: '/dno/section-craft.webp',
   },
 ];

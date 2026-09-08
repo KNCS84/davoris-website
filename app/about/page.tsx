@@ -4,12 +4,19 @@ import { Container } from '@/components/primitives/Container';
 import { Section } from '@/components/primitives/Section';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { LineMask } from '@/components/motion/LineMask';
+import { Field } from '@/components/primitives/Field';
+import { Positioning } from '@/components/sections/Positioning';
+import { Craft } from '@/components/sections/Craft';
+import { Commitments } from '@/components/sections/Proof';
+import { Engagement } from '@/components/sections/Engagement';
+import { PageCta } from '@/components/sections/PageCta';
 import { FRAMEWORKS } from '@/content/proof';
+import { SITE } from '@/content/site';
 
 export const metadata: Metadata = {
   title: 'Approach',
   description:
-    'How DNO works: one accountable team, approval engineered in from the first line, and documentation that survives audit.',
+    'How DNO works: one accountable team, approval engineered in from the first line, rigour visible in the drawing set, and documentation that survives audit.',
 };
 
 export default function AboutPage() {
@@ -23,53 +30,51 @@ export default function AboutPage() {
         alt=""
       />
 
-      <Section tone="light">
-        <Container>
-          <div className="grid">
-            <div className="col-7">
-              <Eyebrow>Who we are</Eyebrow>
-              <LineMask as="h2" className="h2 mt-stack" lines={['Engineers to the', 'public interest.']} />
-            </div>
-            <div className="col-5">
-              <p className="body mt-stack">
-                DNO Engineering Consultants Limited provides professional consulting engineering to cities,
-                municipalities, industries, rural water districts, and federal and state agencies.
-              </p>
-              <p className="body mt-stack">
-                We pay strict attention to detail in planning and design, adhere to timelines and budgets, and
-                maintain working relationships with state and federal regulatory and funding agencies.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <Positioning />
+      <Craft />
+      <Commitments />
+      <Engagement />
 
       <Section tone="dark" ruleTop>
         <Container>
-          <Eyebrow>What we hold to</Eyebrow>
-          <ul className="engage__steps mt-block">
-            {[
-              ['I', 'On time is a design constraint.', 'Schedules are engineered, not promised.'],
-              ['II', 'On budget is a deliverable.', 'Cost opinions trace to unit basis, updated every cycle.'],
-              ['III', 'On record is a responsibility.', 'Documentation is audit-traceable from survey to closeout.'],
-            ].map(([k, t, d]) => (
-              <li className="engage__step" key={k}>
-                <span className="engage__n display">{k}</span>
-                <div className="engage__body">
-                  <h3 className="h3">{t}</h3>
-                  <p className="body engage__d">{d}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-block">
-            <p className="mono-xs" style={{ color: 'var(--muted-on-dark)' }}>
-              Frameworks we work inside: {FRAMEWORKS.join(' · ')}
-            </p>
+          <div className="grid">
+            <div className="col-5">
+              <Eyebrow>Credentials</Eyebrow>
+              <LineMask as="h2" className="h2 mt-stack" lines={['On the record,', 'in full.']} />
+              <p className="lead mt-stack">
+                Registrations, certifications, and insurance are stated plainly — or left as open fields
+                until the client supplies them. Nothing is implied.
+              </p>
+            </div>
+            <div className="col-7">
+              <ul className="cred__list mt-stack">
+                <li className="cred__row">
+                  <span className="mono-xs cred__k">Firm registration</span>
+                  <span className="mono">{SITE.registration ?? <Field token="{{PE_FIRM_REG}}" />}</span>
+                </li>
+                <li className="cred__row">
+                  <span className="mono-xs cred__k">Established</span>
+                  <span className="mono">{SITE.founded ?? <Field token="{{FOUNDED}}" />}</span>
+                </li>
+                <li className="cred__row">
+                  <span className="mono-xs cred__k">Certifications</span>
+                  <span className="mono">{<Field token="{{DBE_WBE_CERTS}}" />}</span>
+                </li>
+                <li className="cred__row">
+                  <span className="mono-xs cred__k">Insurance</span>
+                  <span className="mono">{<Field token="{{EPL_PEO_COI}}" />}</span>
+                </li>
+                <li className="cred__row">
+                  <span className="mono-xs cred__k">Frameworks navigated</span>
+                  <span className="mono">{FRAMEWORKS.join(' · ')}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </Container>
       </Section>
+
+      <PageCta lines={['Meet the team', 'behind the sheet.']} />
     </>
   );
 }

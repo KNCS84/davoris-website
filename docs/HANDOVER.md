@@ -23,6 +23,11 @@ All 8 handover steps 1–6 are DONE. `npx next build` ✓ (17 routes, First Load
 Server: `npx next start -H 0.0.0.0 -p 3000` → all routes 200; hero webp layers, LineMask, CharTrack,
 marquee, DrawPath verified present in served HTML; no Davoris references remain.
 
+**OPERATIONAL GOTCHA:** `node_modules/` and `.next/` are snapshot-excluded and DO NOT persist between
+sessions. Every new session must run `npm ci && ./node_modules/.bin/next build` first, then start with
+`./node_modules/.bin/next start -H 0.0.0.0 -p 3000`. **Never bare `npx next`** — it fetches next@16 and
+fails with "Could not find a production build".
+
 **Resolutions recorded (do not re-litigate):**
 - `fonts.googleapis.com` TLS is BLOCKED in this sandbox → `next/font` can never build here. Fonts are now
   **self-hosted via Fontsource**: `@fontsource-variable/archivo/wdth.css` (wght+wdth), `@fontsource-variable/geist`,

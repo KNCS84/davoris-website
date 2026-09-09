@@ -38,11 +38,9 @@ export function Capabilities() {
     <section className="section section--light cap" id="services">
       <Container>
         <Eyebrow>What we do</Eyebrow>
-<<<<<<< HEAD
-        <LineMask as="h2" className="h2 cap__title mt-stack" lines={['Six lines.', 'One accountable team.']} />
+        <LineMask as="h2" className="h2 cap__title mt-stack" lines={['Seven lines.', 'One accountable team.']} />
 =======
         <LineMask as="h2" className="h2 cap__title mt-stack" lines={['Seven lines.', 'One accountable team.']} />
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
 
         <ul className="cap__list mt-block">
           {SERVICES.map((s, i) => (

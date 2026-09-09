@@ -46,11 +46,9 @@ export const PROJECTS: Project[] = [
     parameters: [
       { label: 'Typical section', value: '2 travel lanes + parking' },
       { label: 'Drainage', value: 'Curb & gutter, closed system' },
-<<<<<<< HEAD
-      { label: 'Access', value: 'PROWAG-compliant ramps' },
+      { label: 'Access', value: 'Accessible ramps per national code' },
 =======
       { label: 'Access', value: 'Accessible ramps per national code' },
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
     ],
   },
   {
@@ -64,11 +62,9 @@ export const PROJECTS: Project[] = [
     parameters: [
       { label: 'Horizon', value: '20-year, phased' },
       { label: 'Output', value: 'Adoptable capital improvement programme' },
-<<<<<<< HEAD
-      { label: 'Funding', value: 'SRF / USDA-RD aligned' },
+      { label: 'Funding', value: 'TETFUND / UBEC aligned' },
 =======
       { label: 'Funding', value: 'TETFUND / UBEC aligned' },
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
     ],
   },
   {
@@ -132,25 +128,21 @@ export const PROJECTS_EXTENDED: Project[] = [
     ],
   },
   {
-<<<<<<< HEAD
-    slug: 'srf-funding-permit-support',
+    slug: 'intervention-funding-permit-support',
     kind: 'representative',
-    title: 'SRF Funding & Permitting Support',
+    title: 'Intervention Funding & Permitting Support',
 =======
     slug: 'intervention-funding-permit-support',
     kind: 'representative',
     title: 'Intervention Funding & Permitting Support',
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
     scope: 'Application, environmental, and permit documentation package.',
     serviceSlug: 'regulatory-funding',
     image: '/dno/hero-built.webp',
     client: null, location: null, value: null, year: null,
     parameters: [
-<<<<<<< HEAD
-      { label: 'Programme', value: 'State Revolving Fund alignment' },
+      { label: 'Programme', value: 'TETFUND / UBEC alignment' },
 =======
       { label: 'Programme', value: 'TETFUND / UBEC alignment' },
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
       { label: 'Documentation', value: 'Funder-ready, audit-traceable' },
       { label: 'Permitting', value: 'Coordinated pre-application' },
     ],

@@ -128,11 +128,9 @@ export function Hero() {
         <div className="hero__scrim" aria-hidden="true" />
 
         <div className="container hero__content">
-<<<<<<< HEAD
-          <p className="eyebrow hero__eyebrow">Municipal · Water · Transportation · Federal</p>
+          <p className="eyebrow hero__eyebrow">Public Works · Institutional · Water · Roads</p>
 =======
           <p className="eyebrow hero__eyebrow">Public Works · Institutional · Water · Roads</p>
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
 
           <h1 className="hero__title display">
             {/* Time-based entrance, NOT scroll-scrub: the brand name must be

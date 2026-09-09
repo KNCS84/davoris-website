@@ -4,14 +4,13 @@ import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/primitives/Button';
 
 const SERVICES_OPTIONS = [
-<<<<<<< HEAD
+  'Building & Institutional Engineering',
   'Water Supply & Distribution',
-  'Road & Street Improvements',
+  'Roads, Streets & Drainage',
 =======
   'Building & Institutional Engineering',
   'Water Supply & Distribution',
   'Roads, Streets & Drainage',
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
   'Design-Build Delivery',
   'Master Planning',
   'Regulatory & Funding Liaison',

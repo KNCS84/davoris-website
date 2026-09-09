@@ -19,14 +19,6 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.short}`,
   },
   description:
-<<<<<<< HEAD
-    'Consulting engineers to cities, water districts, and agencies. Water supply, road and street improvements, design-build delivery, and master planning — total project management from master plan to final inspection.',
-  keywords: [
-    'municipal engineering',
-    'water supply engineering',
-    'design-build',
-    'master planning',
-    'public works consulting engineer',
 =======
     'Consulting engineers to governments, institutions, and agencies across Nigeria. Building and institutional engineering, water supply, roads and drainage, design-build delivery, and master planning — total project management from feasibility to handover.',
   keywords: [
@@ -36,7 +28,7 @@ export const metadata: Metadata = {
     'UBEC SUBEB classroom projects',
     'water supply engineering Nigeria',
     'master planning Nigeria',
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
+=======
   ],
   openGraph: {
     type: 'website',
@@ -56,18 +48,13 @@ const jsonLd = {
   url: SITE.domain,
   areaServed: 'United States',
   knowsAbout: [
-<<<<<<< HEAD
-    'Water supply and distribution engineering',
-    'Road and street improvements',
-    'Design-build delivery',
-    'Municipal master planning',
 =======
     'Building and institutional engineering',
     'Water supply and distribution engineering',
     'Roads, streets and drainage',
     'Design-build delivery',
     'Public-sector master planning',
->>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
+=======
   ],
 };
 

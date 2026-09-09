@@ -31,10 +31,19 @@ export const PROOF_SECONDARY: Stat[] = [
 /* Funding & regulatory frameworks — real US programmes; the marquee lists the
    landscape the firm works in (supported by the brief), not a credential claim. */
 export const FRAMEWORKS = [
+<<<<<<< HEAD
   'EPA State Revolving Fund',
   'USDA-RD Water & Waste Disposal',
   'FEMA Hazard Mitigation',
   'State DOT Local Programs',
   'CDBG Infrastructure',
   'State Clean Water Revolving',
+=======
+  'TETFUND Intervention Programmes',
+  'UBEC / SUBEB Basic Education',
+  'Federal Ministry of Works',
+  'State Ministries of Works',
+  'RUWASSA Water & Sanitation',
+  'World Bank / IDA-Assisted Programmes',
+>>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
 ];

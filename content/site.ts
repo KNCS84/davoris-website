@@ -8,9 +8,15 @@ export const SITE = {
   name: 'DNO Engineering Consultants Limited',
   short: 'DNO',
   wordmark: 'DNO',
+<<<<<<< HEAD
   sector: 'Consulting Engineering — Municipal & Water Infrastructure',
   positioning:
     'Consulting engineers to cities, water districts, and agencies. Total project management, from master plan to final inspection.',
+=======
+  sector: 'Consulting Engineering — Public Infrastructure & Institutional Facilities',
+  positioning:
+    'Consulting engineers to governments, institutions, and agencies across Nigeria. Total project management, from feasibility to handover.',
+>>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
   // {{CLIENT TO SUPPLY}} — contact block ships as title-block fields until filled.
   email: null,
   phone: null,

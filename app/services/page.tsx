@@ -39,7 +39,11 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Capabilities"
+<<<<<<< HEAD
         titleLines={['Six lines.', 'One accountable team.']}
+=======
+        titleLines={['Seven lines.', 'One accountable team.']}
+>>>>>>> 4afacbe (Reposition to Nigerian public-sector consultancy)
         lead="Every line is staffed end to end by the team that signs the as-built."
         image="/dno/project-masterplan.webp"
         alt=""

@@ -191,8 +191,8 @@
 .cap__num { color: var(--accent-ink); }
 .cap__name { transition: transform var(--dur-fast) var(--ease-out); }
 .cap__card { color: var(--muted-on-light); max-width: var(--measure-card); display: none; }
-.cap__arrow { color: var(--accent-ink); opacity: 0; transform: translateX(-8px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); justify-self: end; }
-@media (min-width: 1024px) { .cap__card { display: block; } }
+.cap__arrow { display: none; color: var(--accent-ink); opacity: 0; transform: translateX(-8px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); justify-self: end; }
+@media (min-width: 1024px) { .cap__card { display: block; } .cap__arrow { display: block; } }
 @media (hover: hover) and (pointer: fine) {
   .cap__link:hover { background: var(--paper-200); }
   .cap__link:hover .cap__name { transform: translateX(10px); }
@@ -345,8 +345,15 @@
 @media (min-width: 1024px) { .statement__row { grid-template-columns: 5rem 1fr 1.3fr; } }
 .statement__n { color: var(--accent); }
 .section--light .statement__n, .section--light-alt .statement__n { color: var(--accent-ink); }
+/* On the 2-col mobile grid the title AND body must sit in column 2,
+   otherwise the body falls into the 3.5rem number column and renders
+   one word per line. */
+.statement__t, .statement__d { grid-column: 2; }
 .statement__d { color: var(--muted-on-dark); }
 .section--light .statement__d, .section--light-alt .statement__d { color: var(--muted-on-light); }
+@media (min-width: 1024px) {
+  .statement__d { grid-column: 3; }
+}
 
 /* ---------- SERVICE ROWS (services index, rich) ---------- */
 .svcrows { border-top: 1px solid var(--rule-light); }
@@ -365,7 +372,8 @@
 @media (min-width: 1024px) { .svcrows__params { display: flex; } }
 .svcrows__param { display: flex; justify-content: space-between; gap: var(--space-inline); border-bottom: 1px dashed var(--rule-light); padding-bottom: 4px; color: var(--ink-900); }
 .svcrows__param-k { color: var(--muted-on-light); }
-.svcrows__arrow { color: var(--accent-ink); justify-self: end; opacity: 0; transform: translateX(-8px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.svcrows__arrow { display: none; color: var(--accent-ink); justify-self: end; opacity: 0; transform: translateX(-8px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+@media (min-width: 1024px) { .svcrows__arrow { display: block; } }
 .svcrows__link:hover .svcrows__arrow { opacity: 1; transform: none; }
 
 /* ---------- RELATED ---------- */

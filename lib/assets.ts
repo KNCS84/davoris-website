@@ -9,7 +9,14 @@ import fs from 'fs';
 import path from 'path';
 import type { Project } from '@/content/projects';
 
-const FALLBACK = '/dno/project-designbuild.webp';
+/* First entry that actually exists on disk wins, so the fallback itself can
+   never be a broken image. */
+const FALLBACK_CHAIN = [
+  '/dno/project-designbuild.webp',
+  '/dno/hero-built.webp',
+  '/dno/section-craft.webp',
+  '/dno/section-positioning.webp',
+];
 
 export function assetExists(p: string): boolean {
   try {
@@ -19,8 +26,12 @@ export function assetExists(p: string): boolean {
   }
 }
 
+export function fallbackImage(): string {
+  return FALLBACK_CHAIN.find(assetExists) ?? '';
+}
+
 export function enrichProject<T extends Project>(p: T): T {
-  const image = p.image && assetExists(p.image) ? p.image : FALLBACK;
+  const image = p.image && assetExists(p.image) ? p.image : fallbackImage() || p.image;
   const gallery = (p.gallery ?? []).filter(assetExists);
   return { ...p, image, gallery };
 }

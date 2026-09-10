@@ -49,7 +49,7 @@ export const SERVICES: Service[] = [
       { label: 'Roof / ceiling', value: 'Long-span aluminium, insulated board' },
       { label: 'Finishes', value: 'Institutional-grade, maintainable' },
     ],
-    image: '/dno/project-designbuild.webp', // interim; swaps to real record photo on ingest
+    image: '/dno/hero-built.webp', // interim stand-in; swaps to the real NSUK record photo on ingest
   },
   {
     slug: 'water-supply',

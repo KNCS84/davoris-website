@@ -2,6 +2,7 @@
 
 **Read first:** `docs/MASTER-PROMPT.md` (doctrine) → `docs/ART-DIRECTION-DNO.md` (committed values) → this file.
 **Branch:** `arena/01a07e2d-davoris-website` (never switch/push elsewhere). `main` still holds the old Davoris site — do not touch it.
+**Update (2026-09-10):** the DNO site now also lives in its own repository, `KNCS84/dno-engineering-website` (branch `main`, clean single-commit history). This workspace remains the build session; the original Davoris template stays untouched in `KNCS84/davoris-website` on `main`.
 
 ## QUICK START (first commands of the next session)
 

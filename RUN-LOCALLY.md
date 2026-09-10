@@ -25,15 +25,18 @@ Both should print a version number.
 In that same terminal:
 
 ```
-git clone https://github.com/KNCS84/davoris-website.git
-cd davoris-website
-git checkout arena/01a07e2d-davoris-website
+git clone https://github.com/KNCS84/dno-engineering-website.git
+cd dno-engineering-website
 ```
 
-Then in VS Code: **File → Open Folder…** and pick the `davoris-website` folder.
+Then in VS Code: **File → Open Folder…** and pick the `dno-engineering-website` folder.
 
-> The branch `arena/01a07e2d-davoris-website` is the one with all the DNO work.
-> The `main` branch is the old template — don't use it.
+> This repository contains only the DNO Engineering Consultants website.
+> The old Davoris template lives separately in `KNCS84/davoris-website` (its `main`
+> branch) and is untouched.
+
+**No Git?** You can also download a ZIP: on the GitHub page click the green **Code**
+button → **Download ZIP**, then unzip it and open the unzipped folder in VS Code.
 
 ---
 
@@ -85,7 +88,7 @@ The site runs fine without this — the form just won't deliver messages.
 Right now the project pages show stand-in artwork, because the photos you sent in chat
 never landed as files I could use. When you have them on your computer:
 
-1. Create a folder called **`photos`** inside `davoris-website`
+1. Create a folder called **`photos`** inside the project folder
 2. Drop the original JPGs in it — **keep their exact file names** (table below)
 3. Run:
    ```

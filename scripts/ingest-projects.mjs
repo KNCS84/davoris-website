@@ -1,11 +1,13 @@
-/* Ingest real project photography from /home/user/uploads into public/projects/.
-   Run AFTER re-attaching the 8 photos:  node scripts/ingest-projects.mjs
+/* Ingest real project photography into public/projects/.
+   Usage:  node scripts/ingest-projects.mjs [folder-of-photos]
+   Default folder: ./photos  (create it and drop the original JPGs in).
    Applies the committed grade (desaturate ~12%, lift blacks into the palette)
-   and the two agreed crops: WA0074 (drop overgrown foreground), WA0100 (drop floor litter). */
+   and the two agreed crops: WA0074 (drop overgrown foreground), WA0100 (drop floor litter).
+   After running it, rebuild (npm run build) — the site auto-detects the new images. */
 import sharp from 'sharp';
 import fs from 'fs';
 
-const SRC = '/home/user/uploads';
+const SRC = process.argv[2] || 'photos';
 const OUT = 'public/projects';
 const MAP = {
   // --- Nasarawa State University, Keffi (Centre for Physical Planning) ---

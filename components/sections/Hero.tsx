@@ -129,8 +129,6 @@ export function Hero() {
 
         <div className="container hero__content">
           <p className="eyebrow hero__eyebrow">Public Works · Institutional · Water · Roads</p>
-=======
-          <p className="eyebrow hero__eyebrow">Public Works · Institutional · Water · Roads</p>
 
           <h1 className="hero__title display">
             {/* Time-based entrance, NOT scroll-scrub: the brand name must be

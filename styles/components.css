@@ -428,3 +428,11 @@
 .cred__row { display: grid; grid-template-columns: 1fr; gap: 4px; padding-block: var(--space-stack); border-bottom: 1px solid var(--rule-dark); }
 @media (min-width: 768px) { .cred__row { grid-template-columns: 12rem 1fr; gap: var(--space-stack); align-items: baseline; } }
 .cred__k { color: var(--muted-on-dark); }
+
+/* ---------- Real record tags + gallery ---------- */
+.proj__tag--record { background: var(--accent); color: var(--on-accent); }
+.proj__count { position: absolute; right: 0; bottom: 0; background: var(--ink-900); color: var(--paper-100); padding: 6px 10px; }
+.proj__gallery { display: grid; gap: var(--space-inline); grid-template-columns: 1fr; }
+@media (min-width: 768px) { .proj__gallery { grid-template-columns: repeat(2, 1fr); } }
+.proj__gallery-item { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ink-800); }
+.proj__gallery-item img { object-fit: cover; }

@@ -4,12 +4,16 @@ import type { Project } from '@/content/projects';
 import { Field } from '@/components/primitives/Field';
 
 export function ProjectCard({ p }: { p: Project }) {
+  const frames = (p.gallery?.length ?? 0) + 1;
   return (
     <Link className="proj__card" href={`/projects/${p.slug}`} data-cursor="View record">
       <div className="proj__media">
         <Image src={p.image} alt={p.title} fill sizes="(max-width:900px) 100vw, 50vw" loading="lazy" />
-        {p.kind === 'representative' && (
-          <span className="proj__tag mono-xs">Representative scope</span>
+        <span className={`proj__tag mono-xs ${p.kind === 'record' ? 'proj__tag--record' : ''}`}>
+          {p.kind === 'record' ? 'Delivered — public record' : 'Representative scope'}
+        </span>
+        {p.kind === 'record' && frames > 1 && (
+          <span className="proj__count mono-xs">{frames} frames</span>
         )}
       </div>
       <h3 className="h3 mt-stack">{p.title}</h3>

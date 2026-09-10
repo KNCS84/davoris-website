@@ -19,7 +19,6 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.short}`,
   },
   description:
-=======
     'Consulting engineers to governments, institutions, and agencies across Nigeria. Building and institutional engineering, water supply, roads and drainage, design-build delivery, and master planning — total project management from feasibility to handover.',
   keywords: [
     'civil engineering Nigeria',
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
     'UBEC SUBEB classroom projects',
     'water supply engineering Nigeria',
     'master planning Nigeria',
-=======
   ],
   openGraph: {
     type: 'website',
@@ -46,15 +44,13 @@ const jsonLd = {
   name: SITE.name,
   description: SITE.positioning,
   url: SITE.domain,
-  areaServed: 'United States',
+  areaServed: 'Nigeria',
   knowsAbout: [
-=======
     'Building and institutional engineering',
     'Water supply and distribution engineering',
     'Roads, streets and drainage',
     'Design-build delivery',
     'Public-sector master planning',
-=======
   ],
 };
 

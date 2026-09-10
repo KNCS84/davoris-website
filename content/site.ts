@@ -11,10 +11,6 @@ export const SITE = {
   sector: 'Consulting Engineering — Public Infrastructure & Institutional Facilities',
   positioning:
     'Consulting engineers to governments, institutions, and agencies across Nigeria. Total project management, from feasibility to handover.',
-=======
-  sector: 'Consulting Engineering — Public Infrastructure & Institutional Facilities',
-  positioning:
-    'Consulting engineers to governments, institutions, and agencies across Nigeria. Total project management, from feasibility to handover.',
   // {{CLIENT TO SUPPLY}} — contact block ships as title-block fields until filled.
   email: null,
   phone: null,

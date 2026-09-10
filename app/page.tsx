@@ -10,6 +10,7 @@ import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { LineMask } from '@/components/motion/LineMask';
 import { ALL_PROJECTS } from '@/content/projects';
+import { enrichAll } from '@/lib/assets';
 
 export default function HomePage() {
   return (
@@ -32,9 +33,11 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="proj__grid mt-block">
-            {ALL_PROJECTS.slice(0, 4).map((p) => (
-              <ProjectCard key={p.slug} p={p} />
-            ))}
+            {enrichAll(ALL_PROJECTS)
+              .slice(0, 4)
+              .map((p) => (
+                <ProjectCard key={p.slug} p={p} />
+              ))}
           </div>
         </Container>
       </section>

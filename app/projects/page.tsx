@@ -6,6 +6,8 @@ import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { LineMask } from '@/components/motion/LineMask';
 import { WorkFilter } from '@/components/WorkFilter';
 import { PageCta } from '@/components/sections/PageCta';
+import { ALL_PROJECTS } from '@/content/projects';
+import { enrichAll } from '@/lib/assets';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -29,7 +31,7 @@ export default function ProjectsPage() {
           <Eyebrow>Archive</Eyebrow>
           <LineMask as="h2" className="h2 mt-stack" lines={['The work,', 'by line.']} />
           <div className="mt-block">
-            <WorkFilter />
+            <WorkFilter projects={enrichAll(ALL_PROJECTS)} />
           </div>
         </Container>
       </Section>

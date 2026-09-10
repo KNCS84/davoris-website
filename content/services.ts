@@ -1,10 +1,8 @@
 /* ==========================================================================
-=======
    DNO — SERVICE LINES (Nigerian public-sector positioning)
    Seven lines. Building & Institutional leads because the delivered record
    (TETFUND 2015, UBEC/SUBEB 2018 interventions) proves it first-hand.
    Standards/units are Nigerian/metric practice. Card copy ≤ 12 words.
-=======
    ========================================================================== */
 
 export interface Service {
@@ -17,14 +15,11 @@ export interface Service {
   deliverables: string[];
   process: { num: string; title: string }[];
   typical: { label: string; value: string }[]; // practice-typical standards, labelled TYPICAL
-=======
-  typical: { label: string; value: string }[]; // practice-typical standards, labelled TYPICAL
   image: string;
 }
 
 export const SERVICES: Service[] = [
   {
-=======
     slug: 'building-institutional',
     number: '01',
     name: 'Building & Institutional Engineering',
@@ -59,12 +54,10 @@ export const SERVICES: Service[] = [
   {
     slug: 'water-supply',
     number: '02',
-=======
     name: 'Water Supply & Distribution',
     card: 'Source-to-tap systems: mains, storage, booster, and treatment support.',
     lead: 'Potable water systems engineered for demand, pressure, and the decades after handover.',
     overview: [
-=======
       'A water scheme is judged long after commissioning — by pressure at the far standpipe, by a main that does not fail, by storage that holds through an outage. We design for that judgement.',
       'From source evaluation through distribution modelling to commissioning, every alignment, diameter, and material choice is documented so the scheme can be defended, maintained, and extended.',
     ],
@@ -75,13 +68,11 @@ export const SERVICES: Service[] = [
       'Treatment and filtration engineering support',
       'Borehole, standpipe, and reticulation design',
       'Tender documentation and bidding assistance',
-=======
     ],
     process: [
       { num: '01', title: 'Demand & Source Evaluation' },
       { num: '02', title: 'System Modelling & Sizing' },
       { num: '03', title: 'Design & Documentation' },
-=======
       { num: '04', title: 'Supervision & Commissioning' },
     ],
     typical: [
@@ -89,13 +80,11 @@ export const SERVICES: Service[] = [
       { label: 'Design velocity', value: '0.6 – 1.5 m/s' },
       { label: 'Min. residual head', value: '10 m at peak hour' },
       { label: 'Design life', value: '50 years, maintainable' },
-=======
     ],
     image: '/dno/project-water.webp',
   },
   {
     slug: 'road-street',
-=======
     number: '03',
     name: 'Roads, Streets & Drainage',
     card: 'Geometric design, pavement, drainage, and pedestrian access.',
@@ -103,17 +92,14 @@ export const SERVICES: Service[] = [
     overview: [
       'A street is infrastructure anyone can criticise and everyone depends on. We treat reconstruction as a public act: geometry, drainage, and pedestrian access resolved together, not traded off in sequence.',
       'Alignment, cross-section, and pavement design are set against measured conditions, and every decision is recorded so the finished street can be explained to the people who funded it.',
-=======
     ],
     deliverables: [
       'Geometric and horizontal/vertical alignment design',
       'Pavement design and rehabilitation strategy',
-=======
       'Storm drainage and kerb-and-channel engineering',
       'Walkways, kerbs, and pedestrian access design',
       'Traffic management and construction phasing',
       'Utility coordination and as-built documentation',
-=======
     ],
     process: [
       { num: '01', title: 'Survey & Condition Assessment' },
@@ -122,19 +108,15 @@ export const SERVICES: Service[] = [
       { num: '04', title: 'Construction & As-Built' },
     ],
     typical: [
-=======
       { label: 'Design basis', value: 'FMW Highway Manual / AASHTO' },
       { label: 'Pavement', value: 'Laterite/stone base, bituminous wear' },
       { label: 'Cross-fall', value: '2.5% typical' },
       { label: 'Drainage', value: '10-yr minor / 50-yr major' },
-=======
     ],
     image: '/dno/project-road.webp',
   },
   {
     slug: 'design-build',
-    number: '04',
-=======
     number: '04',
     name: 'Design-Build Delivery',
     card: 'Single-point accountability from concept through commissioning.',
@@ -162,14 +144,11 @@ export const SERVICES: Service[] = [
       { label: 'Schedule control', value: 'Integrated baseline, monthly update' },
       { label: 'Cost control', value: 'Open-book where applicable' },
       { label: 'Changes', value: 'Priced and approved in writing' },
-=======
-      { label: 'Changes', value: 'Priced and approved in writing' },
     ],
     image: '/dno/section-positioning.webp',
   },
   {
     slug: 'master-planning',
-=======
     number: '05',
     name: 'Master Planning',
     card: 'Capital plans that sequence growth against real budgets.',
@@ -184,7 +163,6 @@ export const SERVICES: Service[] = [
       'Capital improvement programme and phasing',
       'Cost opinions traceable to unit basis',
       'Funding and intervention-alignment strategy',
-=======
       'Public-meeting and council presentation support',
     ],
     process: [
@@ -203,7 +181,6 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'regulatory-funding',
-=======
     number: '06',
     name: 'Regulatory & Funding Liaison',
     card: 'Funder and agency coordination, from pre-application to closeout.',
@@ -211,17 +188,14 @@ export const SERVICES: Service[] = [
     overview: [
       'Approvals and funding are not paperwork at the end of a project — they are constraints that shape the design from the first line. We carry agency coordination inside the engineering, not beside it.',
       'Working relationships with federal and state funding and regulatory bodies are maintained continuously, so pre-application feedback arrives before money is spent on the wrong answer.',
-=======
     ],
     deliverables: [
       'Agency pre-application and scoping coordination',
       'Permitting strategy and documentation',
-=======
       'Intervention-programme eligibility and application support',
       'Regulatory compliance documentation',
       'Reporting and closeout to funder requirements',
       'Continuing liaison during construction',
-=======
     ],
     process: [
       { num: '01', title: 'Programme & Agency Mapping' },
@@ -231,8 +205,6 @@ export const SERVICES: Service[] = [
     ],
     typical: [
       { label: 'Frameworks navigated', value: 'TETFUND · UBEC/SUBEB · FMW · RUWASSA' },
-=======
-      { label: 'Frameworks navigated', value: 'TETFUND · UBEC/SUBEB · FMW · RUWASSA' },
       { label: 'Coordination point', value: 'Pre-application, before design spend' },
       { label: 'Documentation', value: 'Funder-ready, audit-traceable' },
       { label: 'Continuity', value: 'Same team through closeout' },
@@ -241,8 +213,6 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'project-management',
-    number: '07',
-=======
     number: '07',
     name: 'Total Project Management',
     card: 'One team carries the project from first survey to final inspection.',
@@ -255,8 +225,6 @@ export const SERVICES: Service[] = [
       'Single-point project leadership',
       'Integrated schedule and budget control',
       'Stakeholder and community communication support',
-=======
-      'Stakeholder and community communication support',
       'Quality management and design review gates',
       'Construction administration and site representation',
       'As-built documentation and handover',
@@ -265,8 +233,6 @@ export const SERVICES: Service[] = [
       { num: '01', title: 'Charter & Team Assignment' },
       { num: '02', title: 'Design & Control Baselines' },
       { num: '03', title: 'Construction Administration' },
-      { num: '04', title: 'Handover & Post-Completion Review' },
-=======
       { num: '04', title: 'Handover & Post-Completion Review' },
     ],
     typical: [

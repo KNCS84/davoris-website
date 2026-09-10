@@ -40,8 +40,6 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Capabilities"
         titleLines={['Seven lines.', 'One accountable team.']}
-=======
-        titleLines={['Seven lines.', 'One accountable team.']}
         lead="Every line is staffed end to end by the team that signs the as-built."
         image="/dno/project-masterplan.webp"
         alt=""

@@ -7,7 +7,6 @@ const SERVICES_OPTIONS = [
   'Building & Institutional Engineering',
   'Water Supply & Distribution',
   'Roads, Streets & Drainage',
-=======
   'Building & Institutional Engineering',
   'Water Supply & Distribution',
   'Roads, Streets & Drainage',

@@ -1,12 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ALL_PROJECTS } from '@/content/projects';
+import { ALL_PROJECTS, type Project } from '@/content/projects';
 import { SERVICES } from '@/content/services';
 import { ProjectCard } from '@/components/ProjectCard';
 
-export function WorkFilter() {
+export function WorkFilter({ projects }: { projects?: Project[] }) {
   const [active, setActive] = useState<string>('all');
+  const source = projects ?? ALL_PROJECTS;
 
   const chips = useMemo(
     () => [
@@ -16,7 +17,7 @@ export function WorkFilter() {
     []
   );
 
-  const shown = active === 'all' ? ALL_PROJECTS : ALL_PROJECTS.filter((p) => p.serviceSlug === active);
+  const shown = active === 'all' ? source : source.filter((p) => p.serviceSlug === active);
 
   return (
     <>

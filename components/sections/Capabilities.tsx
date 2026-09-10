@@ -39,8 +39,6 @@ export function Capabilities() {
       <Container>
         <Eyebrow>What we do</Eyebrow>
         <LineMask as="h2" className="h2 cap__title mt-stack" lines={['Seven lines.', 'One accountable team.']} />
-=======
-        <LineMask as="h2" className="h2 cap__title mt-stack" lines={['Seven lines.', 'One accountable team.']} />
 
         <ul className="cap__list mt-block">
           {SERVICES.map((s, i) => (

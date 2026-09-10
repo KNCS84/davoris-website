@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ALL_PROJECTS } from '@/content/projects';
 import { SERVICES } from '@/content/services';
+import { enrichAll } from '@/lib/assets';
 import { PageHero } from '@/components/PageHero';
 import { Container } from '@/components/primitives/Container';
 import { Section } from '@/components/primitives/Section';
@@ -26,11 +28,12 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function ProjectDetailPage({ params }: Props) {
-  const idx = ALL_PROJECTS.findIndex((x) => x.slug === params.slug);
+  const all = enrichAll(ALL_PROJECTS);
+  const idx = all.findIndex((x) => x.slug === params.slug);
   if (idx === -1) notFound();
-  const p = ALL_PROJECTS[idx];
+  const p = all[idx];
   const service = SERVICES.find((s) => s.slug === p.serviceSlug);
-  const related = [ALL_PROJECTS[(idx + 1) % ALL_PROJECTS.length], ALL_PROJECTS[(idx + 2) % ALL_PROJECTS.length]];
+  const related = [all[(idx + 1) % all.length], all[(idx + 2) % all.length]];
 
   return (
     <>
@@ -67,6 +70,26 @@ export default function ProjectDetailPage({ params }: Props) {
               </ul>
             </div>
           </div>
+        </Container>
+      </Section>
+
+      <Section tone="dark" ruleTop>
+        <Container>
+          <Eyebrow>Site record</Eyebrow>
+          {p.gallery && p.gallery.length > 0 ? (
+            <div className="proj__gallery mt-block">
+              {p.gallery.map((g) => (
+                <div className="proj__gallery-item" key={g}>
+                  <Image src={g} alt={`${p.title} — site record`} fill sizes="(max-width:768px) 100vw, 50vw" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="lead mt-stack">
+              Photographic record publishes with the project archive. Until then the scope below stands as
+              the written record.
+            </p>
+          )}
         </Container>
       </Section>
 
